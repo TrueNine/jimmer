@@ -34,6 +34,7 @@ drop table book_store if exists;
 drop table tree_node if exists;
 drop table primitive if exists;
 drop table personal if exists;
+drop table monster if exists;
 
 drop sequence file_user_id_seq if exists;
 drop sequence file_id_seq if exists;
@@ -77,7 +78,7 @@ alter table book
 ;
 
 create table author(
-    id bigint not null,
+    id bigint auto_increment(100) not null,
     first_name varchar(25) not null,
     last_name varchar(25) not null,
     gender varchar(6) not null
@@ -847,4 +848,12 @@ insert into camera(id, name) values(1, 'camera-1');
 insert into eyepiece(id, name, eye_relief, camera_id) values(1, 'eyepiece-1', 10, 1);
 insert into objective(id, name, working_distance, camera_id) values(1, 'objective-1', 2500, 1);
 
+create table monster(
+                         id int not null PRIMARY KEY,
+                         base_id int null
+);
 
+alter table monster
+    add constraint fk_monster_base
+        foreign key(base_id)
+            references monster(id);
